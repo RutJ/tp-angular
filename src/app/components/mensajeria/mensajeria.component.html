@@ -1,0 +1,43 @@
+<form class="card">
+  <div class="card-header"> Envio de Mensajes-</div>
+    <div class="card-body">
+      <div class="row form-group">
+        <label class="col-sm-12 col-md-4">Para</label>
+        <input class="form-control col-sm-12 col-md-8" type="number" name="txtdesde" [(ngModel)]= "mensaje.para"/>
+      </div>
+    <div class="row form-group">
+      <label class="col-sm-12 col-md-4" >De</label>
+      <input class="form-control col-sm-12 col-md-8" type="number" name="txthasta" required [(ngModel)]= "mensaje.de"/>
+    </div>
+    <label> Tu mensaje {{tamTexto}}caracteres restante</label>
+    <div class="row form-group">
+      <textarea class="form-control" [maxlength]="tamMaxText" rows="5" name="txtTexto" [(ngModel)]= "mensaje.texto" (ngModelChange)="cambiarTamText()">  
+      </textarea>
+    </div>
+    <div class="row form-group">
+      <button type="button" class="btn btn-primary" (click)="limpiarMensaje()">Limpiar</button>  
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" (click)="enviarMensaje()" >Enviar</button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">MENSAJE ENVIADO</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <div class="modal-body">
+        Para: {{auxDestino}}<br>
+        Mensaje: {{auxText}}<br>
+        fecha y hora: de envio: {{auxFecha | date:'short'}} 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>          
+    </div>
+  </div>
+</form>

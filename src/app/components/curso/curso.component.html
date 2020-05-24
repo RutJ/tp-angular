@@ -1,0 +1,29 @@
+<div class="row">
+    <form class="col-md-10 offset-1" method="post" action="">
+        <h2 class="text-center"> Registro de asistencias </h2>
+        <div class="form-group row">
+            <label for="idusuario" class="col-md-4" >Usuario</label>
+            <input id="idusuario" class="form-control form-control-sm col-md-8" 
+                type="email" name="idusuario" placeholder="Ingrese email"  required [(ngModel)]="asistente.usuario"/>
+        </div>
+        <div class="form-group row">
+            <label for="iddescripcion" class="col-md-4">Nombre de la Organizacion</label>
+            <input id="iddescripcion" class="form-control form-control-sm col-md-8"
+                 type="text" name="iddescripcion" required [(ngModel)]="asistente.nombreOrganizacion"/>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" (change)="constancia($event)" class="custom-control-input" id="customCheck1" >
+            <label class="custom-control-label" for="customCheck1"  >Requiere Constancia</label>
+          </div>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-secondary ml-2 mr-2" (click)="guardarAsistente()" >Registrarme</button>
+            <button class="btn btn-secondary ml-2 mr-2" type="reset">Limpiar</button>
+        </div>
+    </form>
+    <div class="row"><h2 class="alert alert-success col-12">Listado de Asistentes</h2></div>
+    <ul class="list-group col-md-12" *ngFor="let asistente of asistentes">
+        <li class="list-group-item" >Usuario: {{asistente.usuario}} <br> Nombre de la Organizacion: {{asistente.nombreOrganizacion | uppercase}} <br>   
+            solicitó contancia? {{asistente.requiereConstancia}}</li>
+    </ul>
+</div>
+

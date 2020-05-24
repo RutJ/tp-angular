@@ -1,0 +1,69 @@
+<div>
+    <form class="form-group" #formregistro="ngForm" >
+        <div class="form-group row"> Venta de pasajes </div>
+            <div class="form-group row">
+                <label for="dniPasajero" class="col-md-2">DNI</label>
+                <input id="dniPasajero" class="form-control form-control-sm col-md-10" type="text" name="dniPasajero" placeholder="Ingrese el DNI" required minlength="8" [(ngModel)]="venta.dniPasajero" #dniPasajero="ngModel" />
+                <div *ngIf="dniPasajero.invalid && (dniPasajero.dirty || dniPasajero.touched)" class="alert-danger">
+                    <div *ngIf="dniPasajero.errors.required">DNI es un campo requelido</div>
+                    <div *ngIf="dniPasajero.errors.minlength">DNI es un campo el dni debe tener minimo 8 caracteres</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="idprecio" class="col-md-2">Precio</label>
+                <input id="idprecio" class="form-control form-control-sm col-md-10" type="number" name="idprecio" placeholder="Ingrese valor del pasaje" required [(ngModel)]="venta.precio" #precio="ngModel" />
+            </div>
+            <div class="form-group row">
+                <label for="categoria" class="col-md-2">Categoría</label>
+               <select name="categoria" id="categoria" class="form-control form-control-sm col-md-10" required [(ngModel)]="venta.categoriaPasajero" (change)="calcularDescuento()">
+                   <option value="m">Menor</option>
+                   <option value="a">Adulto</option>
+                   <option value="j">Jubilado</option>
+                   <option value="s" selected>selccione..</option>
+               </select>
+            </div>
+            <div class="row" *ngIf="mostrar">
+              <div class="col6 alert-success">Descuento:{{descuento}} % <br>Precio Total: {{precioActual}}</div><br>
+            </div>
+          <div class="row">   
+              <button type="button" class="btn btn-secondary ml-2 mr-2" (click)="guardarVenta()" [disabled]="!formregistro.form.valid">Enviar</button>
+              <button type="button" class="btn btn-secondary ml-2 mr-2" (click)="limpiarVenta()">Limpiar</button>  
+          </div>
+        
+    </form>
+    <div class="row"><h2 class="alert alert-success col-12">Listado de Pasajeros</h2></div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">DNI</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ve of ventas">
+            <td>{{ve.dniPasajero}}</td>
+            <td>{{ve.precio}}</td>
+            <td>{{ve.categoriaPasajero}}</td>
+            <td>{{ve.fechaCompra | date:'short'}}</td>
+          </tr>
+        </tbody>
+      </table>   
+      <table>
+        <tbody>
+          <tr >
+            <th>Cantidad de pasajes a menores </th>
+            <th>Cantidad de pasajes a jubilados </th>
+            <th>Cantidad de pasajes a adultos</th>
+            <th>Total de pasajes vendidos</th>
+          </tr>
+          <tr>
+            <td>{{cantidadMenores}}</td>
+            <td>{{cantidadJubilados}}</td>
+            <td>{{cantidadAdultos}}</td>
+            <td>{{cantidadTotal}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
