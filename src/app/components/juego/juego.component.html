@@ -1,4 +1,4 @@
-<form>
+<form >
     <div class="row">
         <label for="categoria" >Seleccione categoría</label>
         <select name="categoria" id="categoria" [(ngModel)]="pal.categoria" (change)="seleccionarPalabra()" >
@@ -13,8 +13,8 @@
         <label for="para" class="col-3">Puntaje: {{puntaje}}</label>
         <label for="para" class="col-3"></label>
     </div>
-    <div class="card-group">
-        <img src="" alt="" class="card-img-top">
+    <div class="form-group text-center">
+        <img src="{{palabra.urlImagen}}"  height="280" alt="" class="card-img-top col-5 ">
     </div>
     <div class="row">
         <input type="texto" maxlength="1" class="col-1 alert-success" *ngFor="let letr of letras" value="{{letraObtenida}}" > 
@@ -22,9 +22,9 @@
     <div class="row">
         <label for="">La palabra seleccionada es: {{palabra.palabraEspaniol | uppercase}} </label>
     </div>
-    <div class="row">
-        <div>
-            <button type="button" class="btn btn-primary col-1" *ngFor="let letra of abecedario" (click)="selecionarBoton(letra)" >{{letra}}</button>
+    <div class="row ">
+        <div class="row col-12">
+            <button type="button" class="btn btn-danger col-1" *ngFor="let letra of abecedario" (click)="selecionarBoton(letra)" >{{letra}}</button>
         </div>
     </div>
     <div class="form-group text-center">
