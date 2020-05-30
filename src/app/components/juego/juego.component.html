@@ -1,5 +1,5 @@
 <form >
-    <div class="row">
+    <div class="row" *ngIf="mostrar">
         <label for="categoria" >Seleccione categoría</label>
         <select name="categoria" id="categoria" [(ngModel)]="pal.categoria" (change)="seleccionarPalabra()" >
             <option value="1">Animal</option>
@@ -7,28 +7,45 @@
             <option value="3">Util</option>
         </select>
     </div>
-    <div class="row alert alert-info">
+    <div class="row alert alert-info" *ngIf="mostrar">
         <label for="para" class="col-3">Vidas: {{cantidadVidas}}</label>
         <label for="para" class="col-3"></label>
         <label for="para" class="col-3">Puntaje: {{puntaje}}</label>
         <label for="para" class="col-3"></label>
     </div>
+    <div class="row" *ngIf="compararM">
+        <label for="">La palabra seleccionada es: {{palabra.palabraEspaniol | uppercase}} </label>
+    </div>
     <div class="form-group text-center">
         <img src="{{palabra.urlImagen}}"  height="280" alt="" class="card-img-top col-5 ">
     </div>
     <div class="row">
-        <input type="texto" maxlength="1" class="col-1 alert-success" *ngFor="let letr of letras" value="{{letraObtenida}}" > 
+        
+        <input id="campo1" type="text" name="campo1" maxlength="1" class="col-1 " *ngIf="posiciones[0]" value="" [(ngModel)]="letrasIngresadas[0]" > 
+        <input id="campo2" type="text" name="campo2" maxlength="1" class="col-1 " *ngIf="posiciones[1]" value="" [(ngModel)]="letrasIngresadas[1]" >
+        <input id="campo3" type="text" name="campo3" maxlength="1" class="col-1 " *ngIf="posiciones[2]" value="" [(ngModel)]="letrasIngresadas[2]" >
+        <input id="campo4" type="text" name="campo4" maxlength="1" class="col-1 " *ngIf="posiciones[3]" value="" [(ngModel)]="letrasIngresadas[3]" >
+        <input id="campo5" type="text" name="campo5" maxlength="1" class="col-1 " *ngIf="posiciones[4]" value="" [(ngModel)]="letrasIngresadas[4]" >
+        <input id="campo6" type="text" name="campo6" maxlength="1" class="col-1 " *ngIf="posiciones[5]" value="" [(ngModel)]="letrasIngresadas[5]" >
+        <input id="campo7" type="text" name="campo7" maxlength="1" class="col-1 " *ngIf="posiciones[6]" value="" [(ngModel)]="letrasIngresadas[6]" >
+        <input id="campo8" type="text" name="campo8" maxlength="1" class="col-1 " *ngIf="posiciones[7]" value="" [(ngModel)]="letrasIngresadas[7]" >
+        <input id="campo9" type="text" name="campo9" maxlength="1" class="col-1 " *ngIf="posiciones[8]" value="" [(ngModel)]="letrasIngresadas[8]" >
+        
     </div>
-    <div class="row">
-        <label for="">La palabra seleccionada es: {{palabra.palabraEspaniol | uppercase}} </label>
+    <div class="form-group text-center" *ngIf="compararM" >
+        <button type="button" class="btn btn-secondary ml-2 mr-2 center" *ngIf="compararM" (click)="compararPalabra()" >CompararPalabra</button>
     </div>
+    <div class="form-group text-center" *ngIf="mostrarFelicitacion">
+        <label for="">Felicidades Completo la Categoria </label>
+    </div>
+    
     <div class="row ">
         <div class="row col-12">
             <button type="button" class="btn btn-danger col-1" *ngFor="let letra of abecedario" (click)="selecionarBoton(letra)" >{{letra}}</button>
         </div>
     </div>
     <div class="form-group text-center">
-        <button type="button" class="btn btn-secondary ml-2 mr-2 center">Go</button>
+        <button type="button" class="btn btn-secondary ml-2 mr-2 center" (click)="iniciarJuego()">Go</button>
     </div>
 
 </form>

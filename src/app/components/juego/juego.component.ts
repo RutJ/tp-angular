@@ -19,13 +19,25 @@ export class JuegoComponent implements OnInit {
   pal:Palabra;
   letraObtenida:string="";
   posiciones:Array<boolean>;
+  mostrar=false;
+  palabraIngresada:Palabra;
+  posicionPalabra=0;
+  letrasIngresadas:Array<string>;
+  letraIngresada:string;
+  band=false;
+  compararM=false;
+  maxPosicion:number;
+  mostrarFelicitacion=false;
+
   constructor(private palabraService:GestionPalabraService) {
+    this.palabraIngresada= new Palabra();
     this.palabra= new Palabra();
     this.palabras= new Array<Palabra>();
     this.listaPalabras();
     this.letras= new Array<string>();
     this.pal= new Palabra();
     this.posiciones= new Array<boolean>();
+    this.letrasIngresadas= new Array<string>();
    }
 
   ngOnInit(): void {
@@ -39,26 +51,62 @@ export class JuegoComponent implements OnInit {
       for (let i = 0; i < this.palabras.length && this.encontrado==false; i++) {
         const element = this.palabras[i];
         if(element.categoria==this.pal.categoria){
-          this.palabra= element;
           this.encontrado=true;
-          this.generarCampos();
+          this.posicionPalabra=i;
+          this.maxPosicion=i+2;
+          this.generarCampos(this.posicionPalabra);
         }
       }
-      
   }
-public generarCampos(){
-  this.palabra
+public generarCampos(posicion:number){
+  this.palabra=this.palabras[posicion];
   for (let i = 0; i < this.palabra.palabraIngles.length; i++) {
     const element = this.palabra.palabraIngles[i];
     this.letras.push(element);
-    this.posiciones.push(false);
+    this.posiciones.push(true);
   }
+  this.compararM=true;
 }
-
+public seleccion(){
+  this.band=true
+}
 public selecionarBoton(letra:string){
+  if(this.band==true)
   this.letraObtenida=letra;
 }
+public iniciarJuego(){
+  this.mostrar=true;
+}
 
-
+public compararPalabra(){
+  var contador=0;
+  for (let i = 0; i < this.letras.length; i++) {
+    const element = this.letras[i];
+    if(element==this.letrasIngresadas[i])
+    contador++;
+  }
+  if (contador==this.letras.length) {
+    this.puntaje=this.puntaje+10;
+    this.posicionPalabra++;
+    this.palabra=new Palabra();
+    this.letras= new Array<string>();
+    this.posiciones= new Array<boolean>();
+    this.letrasIngresadas= new Array<string>();
+    this.compararM=false;
+    if (this.posicionPalabra<3) {
+      this.generarCampos(this.posicionPalabra);
+    }
+    
+  }
+  if (contador<this.letras.length) {
+    this.cantidadVidas--;
+    this.letrasIngresadas= new Array<string>();
+    
+  }
+  if (this.posicionPalabra>this.maxPosicion) {
+    this.mostrarFelicitacion=true;
+  }
+  
+}
   
 }
